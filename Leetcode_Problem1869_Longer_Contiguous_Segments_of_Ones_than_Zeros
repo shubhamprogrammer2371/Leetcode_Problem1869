@@ -1,0 +1,44 @@
+bool checkZeroOnes(char* s) {
+    int one_length = 0, zero_length = 0 , flag = s[0]-'0' , temp = 0;
+    for( int i = 0 ; i < strlen(s) ; i++)
+    {
+        if(flag == s[i]-'0')
+            temp++;
+        else
+        {        
+            temp = 1;
+            flag = s[i]-'0';
+        }
+        if(flag == 1)
+            one_length = fmax(temp,one_length);
+        else
+            zero_length = fmax(temp,zero_length);
+    }
+    return (one_length > zero_length);
+}
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+bool checkZeroOnes(char * s){
+    size_t max_0 = 0 , max_1 = 0 , cur_len = 0;
+    while (1) 
+    {
+        if (*s == '\0') 
+            return 1;
+        cur_len++;
+        char current = *s++ , next = *s;
+        if (current != next) 
+        {
+            if(current == '1') 
+                max_1 = fmax(max_1, cur_len);
+            else 
+                max_0 = fmax(max_0, cur_len);
+            cur_len = 0;
+        }
+        if (next == '\0')
+            break;
+    }    
+    return max_1 > max_0;
+}
